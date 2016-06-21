@@ -2,6 +2,8 @@ package com.classes;
 
 import javax.persistence.*;
 
+import org.springframework.web.multipart.MultipartFile;
+
 @Entity
 @Table(name="Book")
 public class Book {
@@ -20,8 +22,8 @@ public class Book {
 	@Column(name="porlang")
      private String proLang;
 	@Column(name="image")
-	private
-	String image;
+	private	String image;
+	//private MultipartFile img;
 	public int getId() {
 		return id;
 	}
@@ -64,4 +66,11 @@ public class Book {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	/*public MultipartFile getImg() {
+		return img;
+	}
+	public void setImg(MultipartFile img) {
+		this.img = img;
+		this.image=img.getOriginalFilename();
+	}*/
 }

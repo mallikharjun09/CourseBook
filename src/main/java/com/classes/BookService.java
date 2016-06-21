@@ -10,8 +10,8 @@ public class BookService {
 	@Autowired
 	BookDao bookDao;
 	
-	public int addBook(Book book){
-		return bookDao.addBook(book);
+	public void addBook(Book book){
+		bookDao.addBook(book);
 	}
 	public List getAllBooks(){
 		return bookDao.getAllBooks();

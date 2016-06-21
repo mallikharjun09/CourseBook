@@ -11,10 +11,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class BookDao {
+public class UserDao {
 	@Autowired
-    private SessionFactory sf;
-
+     private SessionFactory sf;
 	public SessionFactory getSf() {
 		return sf;
 	}
@@ -23,47 +22,47 @@ public class BookDao {
 		this.sf = sf;
 	}
 	@Transactional
-	public int addBook(Book book){
+	public int addUser(User user){
 		Session session=sf.openSession();
 		Transaction tx=session.beginTransaction();
-		session.saveOrUpdate(book);
+		session.saveOrUpdate(user);
 		tx.commit();
-		Serializable id=session.getIdentifier(book);
+		Serializable id=session.getIdentifier(user);
 		session.close();
 		return (Integer)id;
 	}
-	public List getAllBooks(){
+	public List getAllUsers(){
 		Session session=sf.openSession();
-		List blist=session.createQuery("from Book").list();
+		List blist=session.createQuery("from User").list();
 		session.close();
 		return blist;
 	}
 	
-	public Book getSingleBook(int id){
+	public User getSingleUser(int id){
 		Session session=sf.openSession();
-		Book book=(Book)session.load(Book.class, id);
-		return book;
+		User User=(User)session.load(User.class, id);
+		return User;
 	}
 	
-	public int deleteBook(int id){
+	public int deleteUser(int id){
 		Session session=sf.openSession();
 		Transaction tx=session.beginTransaction();
-		Book book=(Book)session.load(Book.class, id);
-		session.delete(book);
+		User user=(User)session.load(User.class, id);
+		session.delete(user);
 		tx.commit();
-		Serializable ids=session.getIdentifier(book);
+		Serializable ids=session.getIdentifier(user);
 		session.close();
 		return (Integer)ids;
 	}
 	
 	
-	public int updateBook(int id){
+	public int updateUser(int id){
 		Session session=sf.openSession();
 		Transaction tx=session.beginTransaction();
-		Book book=(Book)session.load(Book.class, id);
-		session.saveOrUpdate(book);
+		User user=(User)session.load(User.class, id);
+		session.saveOrUpdate(user);
 		tx.commit();
-		Serializable ids=session.getIdentifier(book);
+		Serializable ids=session.getIdentifier(user);
 		session.close();
 		return (Integer)ids;
 		

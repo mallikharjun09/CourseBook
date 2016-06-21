@@ -14,23 +14,20 @@
 <body>
     <div class="container" ng-app="imgApp" ng-controller="imgCtrl">
     <jsp:include page="header.jsp"/>
-   <c:url var="addBook" value="addBook"></c:url>
-   <form:form commandName="book" method="post" action="storeBook">
+   <c:url var="addUser" value="addUser"></c:url>
+   <form:form commandName="book" method="post" action="storeUser">
        <table class="table table-bordered" >
            <tr><td><form:label path="name">Book Name :</form:label></td>
                <td><form:input path="name"/></td>
            </tr>
-           <tr><td><form:label path="description">Discription :</form:label></td>
-               <td><form:input path="description"/></td>
+           <tr><td><form:label path="email">Discription :</form:label></td>
+               <td><form:input path="email"/></td>
            </tr>
-           <tr><td><form:label path="proLang">Subject :</form:label></td>
-               <td><form:input path="proLang"/></td>
+           <tr><td><form:label path="phone">Subject :</form:label></td>
+               <td><form:input path="phone"/></td>
            </tr>
-           <tr><td><form:label path="author">Author Name :</form:label></td>
-               <td><form:input path="author"/></td>
-           </tr>
-           <tr><td><form:label path="cost">Book Cost :</form:label></td>
-               <td><form:input path="cost"/></td>
+           <tr><td><form:label path="password">Author Name :</form:label></td>
+               <td><form:input path="password"/></td>
            </tr>
            <tr><td></td>
                <td><input type="submit" value="Update Image" class="btn"/></td>

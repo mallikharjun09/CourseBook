@@ -20,4 +20,11 @@
       <property name="suffix" value=".jsp" />
    </bean>
 
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+    <bean id="messageSource"
+    class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="validation" />
+    </bean>
+
 </beans>
