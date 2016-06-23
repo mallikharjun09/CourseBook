@@ -1,7 +1,10 @@
 package com.classes;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import javax.validation.constraints.DecimalMin;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
@@ -11,19 +14,27 @@ public class Book {
 	@GeneratedValue
 	@Column(name="id")
      private int id;
+	
 	@Column(name="cost")
+	@DecimalMin("1.0")
      private double cost;
 	@Column(name="description")
+	@Size(min=10,message="Description at least more than 10 Characters")
      private String description;
 	@Column(name="author")
+	@Size(min=3,message="Author Name must be more than 3 letters")
      private String author;
 	@Column(name="name")
+	@Size(min=3,message="Name must be more than 3 letters")
      private String name;
 	@Column(name="porlang")
+	@Size(min=1,message="Subject must contain At least one letter")
      private String proLang;
-	@Column(name="image")
+	@Column(name="image",columnDefinition="varchar(255)")
+	@Size(min=3,message="Please Select the Image")
 	private	String image;
-	//private MultipartFile img;
+	@JsonIgnore
+	transient private MultipartFile img;
 	public int getId() {
 		return id;
 	}
@@ -65,12 +76,13 @@ public class Book {
 	}
 	public void setImage(String image) {
 		this.image = image;
+		
 	}
-	/*public MultipartFile getImg() {
+	public MultipartFile getImg() {
 		return img;
 	}
 	public void setImg(MultipartFile img) {
 		this.img = img;
-		this.image=img.getOriginalFilename();
-	}*/
+		
+	}
 }

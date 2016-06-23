@@ -12,25 +12,27 @@
   <script src='<c:url value="/resources/js/angular.min.js"></c:url>'></script>
 </head>
 <body>
-    <div class="container" ng-app="imgApp" ng-controller="imgCtrl">
+    
     <jsp:include page="header.jsp"/>
    <c:url var="addUser" value="addUser"></c:url>
-   <form:form commandName="book" method="post" action="storeUser">
+   <form:form commandName="user" method="post" action="storeUser">
        <table class="table table-bordered" >
-           <tr><td><form:label path="name">Book Name :</form:label></td>
+           <tr><td><form:label path="name">User Name :</form:label></td>
                <td><form:input path="name"/></td>
            </tr>
-           <tr><td><form:label path="email">Discription :</form:label></td>
-               <td><form:input path="email"/></td>
+           <tr><td><form:label path="mail">Email ID :</form:label></td>
+               <td><form:input path="mail"/></td>
            </tr>
-           <tr><td><form:label path="phone">Subject :</form:label></td>
+           <tr><td><form:label path="phone">Phone Number :</form:label></td>
                <td><form:input path="phone"/></td>
            </tr>
-           <tr><td><form:label path="password">Author Name :</form:label></td>
-               <td><form:input path="password"/></td>
+           <tr><td><form:label path="password">Password :</form:label></td>
+               <td><form:password path="password"/></td>
+               <form:hidden path="role" value="User"/>
+               <form:hidden path="enabled" value="false"/>
            </tr>
            <tr><td></td>
-               <td><input type="submit" value="Update Image" class="btn"/></td>
+               <td><input type="submit" value="Register" class="btn"/></td>
            </tr>
            
        </table>

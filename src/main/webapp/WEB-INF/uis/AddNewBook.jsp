@@ -15,22 +15,32 @@
     <div class="container" ng-app="imgApp" ng-controller="imgCtrl">
     <jsp:include page="header.jsp"/>
    <c:url var="addBook" value="addBook"></c:url>
-   <form:form commandName="book" method="post" action="storeBook">
+   <form:form commandName="book" method="post" action="storeBook" enctype="multipart/form-data">
        <table class="table table-bordered" >
            <tr><td><form:label path="name">Book Name :</form:label></td>
-               <td><form:input path="name"/></td>
+               <td><form:input path="name"/>
+               <font color="red"><form:errors path="name"></form:errors></font></td>
            </tr>
            <tr><td><form:label path="description">Discription :</form:label></td>
-               <td><form:input path="description"/></td>
+               <td><form:input path="description"/>
+               <font color="red"><form:errors path="description"></form:errors></font></td>
            </tr>
            <tr><td><form:label path="proLang">Subject :</form:label></td>
-               <td><form:input path="proLang"/></td>
+               <td><form:input path="proLang"/>
+               <font color="red"><form:errors path="proLang"></form:errors></font></td>
            </tr>
            <tr><td><form:label path="author">Author Name :</form:label></td>
-               <td><form:input path="author"/></td>
+               <td><form:input path="author"/>
+               <font color="red"><form:errors path="author"></form:errors></font></td>
            </tr>
            <tr><td><form:label path="cost">Book Cost :</form:label></td>
-               <td><form:input path="cost"/></td>
+               <td><form:input path="cost"/>
+               <font color="red"><form:errors path="cost"></form:errors></font></td>
+           </tr>
+           <tr><td><form:label path="img">Book Cost :</form:label></td>
+               <td><form:input path="img" type="file"/>
+               <font color="red"><form:errors path="img"></form:errors></font></td>
+               
            </tr>
            <tr><td></td>
                <td><input type="submit" value="Update Image" class="btn"/></td>

@@ -1,3 +1,5 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -8,10 +10,11 @@
       <li><a href="ViewAll">View Books</a></li> 
       <li><a href="#">FeedBack</a></li>
       <li><a href="#">Careers</a></li>
+      <security:authorize ifGrantAny="ROLE_ADMIN">
       <li><a href="newbook">AddBook</a>
-      <li><a href="newuser" class="navbar-right">Register</a></li>
-      <li><a href="login" class="navbar-right">Login</a>
-      
+      </security:authorize>
+      <li><a href="login">Login</a></li>
+      <li><a href="logout"/>Logout</a></li>
     </ul>
   </div>
 </nav>

@@ -26,7 +26,7 @@
     <td>{{x.author}}</td>
     <td>{{x.proLang}}</td>
     <td>{{x.cost}}</td>
-    <td><a href="" class="btn btn-info">View</a>  <a href="editBook?id={{x.id}}" class="btn btn-info">Edit</a>  <a href="delete?id={{x.id}}" class="btn btn-info">Delete</a></td>
+    <td><a href="viewPro?id={{x.id}}" class="btn btn-info">View</a>  <a href="editBook?id={{x.id}}" class="btn btn-info">Edit</a>  <a href="delete?id={{x.id}}" class="btn btn-info">Delete</a></td>
   </tr>
 </table>
 

@@ -1,13 +1,32 @@
 package com.classes;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 
@@ -23,6 +42,27 @@ public class BooksController {
     	ModelAndView model=new ModelAndView("index");
     	return model;
     }
+	@RequestMapping("/index")
+    public ModelAndView showhome(){
+    	ModelAndView model=new ModelAndView("index");
+    	return model;
+    }
+	@RequestMapping("/login")
+	public ModelAndView showLogin(@RequestParam(required=false)String authfailed,String logout,String denied,Principal p){
+		String msg="";
+		if(authfailed!=null)
+			msg="Invalid username or password";
+		else if(logout!=null)
+			msg="User Successfully logged out";
+		else if(denied!=null)
+			msg="Access denied for this user";
+		return new ModelAndView("Login","msg",msg);
+	}
+	
+	@RequestMapping("/logout")
+	public ModelAndView showLogout(){
+		return new ModelAndView("index");
+	}
     @RequestMapping("/home")
     public ModelAndView showHome(){
     	ModelAndView model=new ModelAndView("index");
@@ -42,10 +82,31 @@ public class BooksController {
     	return new ModelAndView("Register");
     }
     @RequestMapping("/storeBook")
-    public ModelAndView addBook(@ModelAttribute("book")Book book){
-    	bs.addBook(book);
+    public String addBook(HttpServletRequest request,@Valid @ModelAttribute("book")Book book,BindingResult result){
+    	if(result.hasErrors()){
+    		return "AddNewBook";
+    	}
+    	String filename=book.getImg().getOriginalFilename();
+    	book.setImage(filename);
     	
-    	return new ModelAndView("redirect:ViewAll");
+    	try{
+    		byte[] bytes=new byte[book.getImg().getInputStream().available()];
+    		book.getImg().getInputStream().read(bytes);
+    		BufferedInputStream buffer=new BufferedInputStream(book.getImg().getInputStream());
+    		MultipartFile file=book.getImg();
+    		String path=request.getServletContext().getRealPath("/")+"resources/images";
+    		File rootPath=new File(path);
+    		if(!rootPath.exists())
+    			rootPath.mkdirs();
+    		File store=new File(rootPath.getAbsolutePath()+"/"+filename);
+    		OutputStream os=new FileOutputStream(store);
+    		os.write(bytes);
+    	}
+    	catch(Exception e){
+    		System.out.println(e.getMessage());
+    	}
+    	bs.addBook(book);
+    	return "ViewAll";
     }
     
     @RequestMapping("upload")
@@ -76,6 +137,12 @@ public class BooksController {
     	ModelAndView model=new ModelAndView("redirect:ViewAll");
     	return model;
     }
+    @RequestMapping(value="viewPro",method=RequestMethod.GET)
+    public ModelAndView viewPro(@RequestParam int id, @ModelAttribute Book books){
+    	Book book=bs.getSingleBook(id);
+    	return new ModelAndView("ViewPro","book",book);
+    	//return new ModelAndView("ViewPro");
+    }
     @RequestMapping(value="editBook",method=RequestMethod.GET)
     public ModelAndView editBook(@RequestParam int id, @ModelAttribute Book books){
     	Book book=bs.getSingleBook(id);
@@ -98,10 +165,13 @@ public class BooksController {
     }
     
     @RequestMapping("/storeUser")
-    public ModelAndView addUser(@ModelAttribute("user")User user){
+    public String addUser(@Valid @ModelAttribute("user")User user,BindingResult result){
+    	if(result.hasErrors()){
+    		return "Register";
+    	}
     	us.addUser(user);
     	
-    	return new ModelAndView("redirect:ViewAll");
+    	return "Register";
     }
 
     @RequestMapping(value="/listUser",method=RequestMethod.GET,produces="application/json")
