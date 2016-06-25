@@ -20,7 +20,7 @@
             <tr><td>${book.description}</td></tr>
             <tr><td>${book.proLang }</td></tr>
             <tr><td>${book.cost}</td></tr>
-            <tr><td></td><td><a href="" class="btn btn-info">Add Cart</a>
+            <tr><td></td><td><a href="cart" class="btn btn-info">Add Cart</a>
             </table>
       </div>
    </body>

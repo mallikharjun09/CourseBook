@@ -1,19 +1,26 @@
 package com.classes;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
 @Entity
+@Table(name="User")
 public class User {
 	 @Id
 	 @GeneratedValue
-	 @Column(name="id")
-     private int id;
+	 @Column(name="uid")
+     private int uid;
+	 @Column(name="Enabled")
+	private
+	 boolean enabled;
 	 @Column(name="Address")
 	 @Size(min=3,message="Address at least more than 3 Characters")
 	 private String address;
@@ -24,27 +31,26 @@ public class User {
 	 @Email(message="Please Enter the proper Mail ID")
      private String mail;
 	 @Column(name="phone")
-	 @Size(min=10,message="Phone Number Should Contain 10 digits")
+	 @Min(message="Phone Number Should Contain 10 digits", value = 10)
      private long phone;
-	 @Column(name="Enabled")
-	 private String enabled;
+	 @Column(name="Status")
+	 private String status;
 	 @Column(name="password")
 	 @Size(min=5,message="Password must be more than 5 letters")
      private String password;
-	 @Column(name="role",columnDefinition="varchar(6) default 'User'")
-	 @Size(min=2,message="Role must Contain 2 letters at least")
-     private String role;
+	 
+	 
 	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getId() {
-		return id;
+	public int getUid() {
+		return uid;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setUid(int id) {
+		this.uid = uid;
 	}
 	public String getName() {
 		return name;
@@ -64,16 +70,23 @@ public class User {
 	public void setPhone(long phone) {
 		this.phone = phone;
 	}
-	public String getRole() {
-		return role;
+	public String getStatus() {
+		return status;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setStatus(String status) {
+		this.status=status;
 	}
-	public String getEnabled() {
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public boolean isEnabled() {
 		return enabled;
 	}
-	public void setEnabled(String enabled) {
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	
 }

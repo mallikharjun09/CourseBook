@@ -10,10 +10,10 @@
       <li><a href="ViewAll">View Books</a></li> 
       <li><a href="#">FeedBack</a></li>
       <li><a href="#">Careers</a></li>
-      <security:authorize ifGrantAny="ROLE_ADMIN">
+      
       <li><a href="newbook">AddBook</a>
-      </security:authorize>
-      <li><a href="login">Login</a></li>
+      
+       <li><a href="<c:url value='login'/>">Login</a></li>
       <li><a href="logout"/>Logout</a></li>
     </ul>
   </div>

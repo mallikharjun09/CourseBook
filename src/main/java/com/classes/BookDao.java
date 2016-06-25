@@ -23,14 +23,9 @@ public class BookDao {
 		this.sf = sf;
 	}
 	@Transactional
-	public int addBook(Book book){
+	public void addBook(Book book){
 		Session session=sf.openSession();
-		Transaction tx=session.beginTransaction();
-		session.saveOrUpdate(book);
-		tx.commit();
-		Serializable id=session.getIdentifier(book);
-		session.close();
-		return (Integer)id;
+		session.persist(book);
 	}
 	public List getAllBooks(){
 		Session session=sf.openSession();
@@ -41,8 +36,8 @@ public class BookDao {
 	
 	public Book getSingleBook(int id){
 		Session session=sf.openSession();
-		Book book=(Book)session.load(Book.class, id);
-		return book;
+		Book Book=(Book)session.load(Book.class, id);
+		return Book;
 	}
 	
 	public int deleteBook(int id){
